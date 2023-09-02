@@ -1,0 +1,74 @@
+Step 1: Install Linux Subsystem in Windows
+
+This step follows this guide:
+https://learn.microsoft.com/en-us/windows/wsl/install
+
+From Windows PowerShell run the following command
+
+wsl --install
+
+This step is important because VizDoom as well as other RL libraries (such as Open AI's Spinning Up) 
+run either on Mac OS or Ubuntu.
+
+Step 2: Install Tensor Flow on WSL
+
+This step follows this tutorial
+https://www.tensorflow.org/install/pip#linux
+
+It creates a conda environment to run TensorFlow with GPU
+
+Previously I was running a virtual environment using venv. See details at:
+https://docs.python.org/3/library/venv.html
+
+Step 3: To run tests we need to run the Jupyter notebooks from WSL
+
+Here there is a guide to run Jupyter Notebooks from WSL
+https://harshityadav95.medium.com/jupyter-notebook-in-windows-subsystem-for-linux-wsl-8b46fdf0a536
+
+The basic idea is to instal jupyter in the virtual environment from WSL
+pip3 install jupyter
+
+Then change bash configuration from VIM by running:
+vim ~/.bashrc
+
+And then adding the following line at the end:
+alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
+
+Finally, after running the command $jupyter notebook from WSL one has to go to a web browser and 
+either follow the links offered in the command line or go to the following url: localhost:8888
+
+Final Notes:
+
+===== 1 =====
+
+Here there is a workaroud to run Spinning Up from the WSL
+https://github.com/openai/spinningup/issues/23
+
+===== 2 =====
+
+There was an error:
+
+libGL error: MESA-LOADER: failed to open swrast: /usr/lib/dri/swrast_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
+libGL error: failed to load driver: swrast
+
+I solved by following this troubleshoot:
+https://github.com/openai/spinningup/issues/377
+
+===== 3 =====
+
+Install the following packages:
+
+https://github.com/tqdm/tqdm#installation
+https://scikit-image.org/docs/stable/user_guide/install.html
+
+Jupyter:
+pip3 install jupyter
+
+ViZDoom:
+sudp apt install cmake git libboost-all-dev libsdl2-dev libopenal-dev
+pip install vizdoom
+
+MatPlotLib:
+python -m pip install -U matplotlib
+
+
